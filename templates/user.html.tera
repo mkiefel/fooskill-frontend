@@ -1,0 +1,45 @@
+{% extends "base" %}
+
+{% block body %}
+<style>
+  .games-table-row {
+      display: flex;
+      justify-content: space-between;
+  }
+
+  .list-header {
+      display: block;
+      border-bottom: 1px solid #aaa;
+  }
+</style>
+<h1>{{ user.name }}</h1>
+<h2>Recent Games</h2>
+<ol>
+  <li class="list-header">
+    <div class="games-table-row">
+      <span>
+        winner
+      </span>
+      <span>
+        loser
+      </span>
+    </div>
+  </li>
+  {% for game in games %}
+  <li>
+    <div class="games-table-row">
+      <span>
+        {% for winner in game.winners %}
+        <a href="/{{secret_group_id}}/users/{{winner.id}}">{{winner.name}}</a>
+        {% endfor %}
+      </span>
+      <span>
+        {% for loser in game.losers %}
+        <a href="/{{secret_group_id}}/users/{{loser.id}}">{{loser.name}}</a>
+        {% endfor %}
+      </span>
+    </div>
+  </li>
+  {% endfor %}
+</ul>
+{% endblock %}

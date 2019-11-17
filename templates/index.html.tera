@@ -1,0 +1,8 @@
+{% extends "base" %}
+
+{% block body %}
+        <script src="/static/main.js"></script>
+        <script>
+         var app = Elm.Main.init({flags: {}});
+        </script>
+{% endblock %}
