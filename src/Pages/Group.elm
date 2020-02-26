@@ -1,4 +1,4 @@
-module Pages.Group exposing (Model, Msg, init, subscriptions, update, view)
+module Pages.Group exposing (Model, Msg, init, update, view)
 
 import Api
 import Css
@@ -42,12 +42,6 @@ init secretGroupId toMsg =
       }
     , requestLeaderboard secretGroupId toMsg
     )
-
-
-subscriptions : (Msg -> msg) -> Sub msg
-subscriptions toMsg =
-    Sub.batch
-        [ Forms.AddGame.subscriptions (toMsg << GotAddGameFormMsg) ]
 
 
 update : Msg -> Model -> (Msg -> msg) -> ( Model, Cmd msg )

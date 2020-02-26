@@ -1,4 +1,4 @@
-module Pages.Home exposing (Model, Msg, init, subscriptions, update, view)
+module Pages.Home exposing (Model, Msg, init, update, view)
 
 import Html.Styled as Html
 
@@ -9,11 +9,6 @@ type alias Model =
 
 type alias Msg =
     {}
-
-
-subscriptions : (Msg -> msg) -> Sub msg
-subscriptions toMsg =
-    Sub.none
 
 
 update : Msg -> Model -> (Msg -> msg) -> ( Model, Cmd msg )

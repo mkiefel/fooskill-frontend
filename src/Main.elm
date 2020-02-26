@@ -12,7 +12,7 @@ import Url
 main =
     Browser.application
         { init = init
-        , subscriptions = subscriptions
+        , subscriptions = \_ -> Sub.none
         , update = update
         , view = view
         , onUrlRequest = OnUrlRequest
@@ -55,12 +55,6 @@ type Msg
     | GotGroupMsg Pages.Group.Msg
     | OnUrlRequest Browser.UrlRequest
     | OnUrlChange Url.Url
-
-
-subscriptions : Model -> Sub Msg
-subscriptions model =
-    Sub.batch
-        [ Pages.Group.subscriptions GotGroupMsg ]
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )

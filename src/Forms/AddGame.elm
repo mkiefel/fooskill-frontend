@@ -1,4 +1,4 @@
-module Forms.AddGame exposing (Msg, State, init, subscriptions, update, view)
+module Forms.AddGame exposing (Msg, State, init, update, view)
 
 import Api
 import Chips
@@ -76,11 +76,6 @@ type Msg
     | GotLosersMsg Chips.Msg
     | Submit
     | GotPostGame (Result Http.Error PostGame)
-
-
-subscriptions : (Msg -> msg) -> Sub msg
-subscriptions toMsg =
-    Sub.none
 
 
 update : Cmd msg -> Msg -> State -> (Msg -> msg) -> ( State, Cmd msg )
