@@ -118,7 +118,20 @@ view model toMsg =
     in
     Html.div []
         (List.append
-            [ Html.h1 [] [ Html.text "Fooskill" ] ]
+            [ Html.object
+                [ Attrs.type_ "image/svg+xml"
+                , Attrs.attribute "data" "/static/images/github.svg"
+                , Attrs.css
+                    [ Css.position Css.absolute
+                    , Css.top Css.zero
+                    , Css.right Css.zero
+                    , Css.width (Css.em 4)
+                    , Css.height (Css.em 4)
+                    ]
+                ]
+                []
+            , Html.h1 [] [ Html.text "Fooskill" ]
+            ]
             body
         )
 
