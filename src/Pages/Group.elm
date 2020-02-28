@@ -104,17 +104,21 @@ view : Model -> (Msg -> msg) -> Html.Html msg
 view model toMsg =
     let
         body =
-            if String.isEmpty model.secretGroupId then
-                []
+            case ( model.secretGroupId, model.leaderboard ) of
+                ( "", _ ) ->
+                    []
 
-            else
-                [ Html.h2 [] [ Html.text "Leaderboard" ]
-                , viewLeaderboard model.secretGroupId model.leaderboard
-                , Html.h2 [] [ Html.text "Add game" ]
-                , Forms.AddGame.view model.addGameFormState (toMsg << GotAddGameFormMsg)
-                , Html.h2 [] [ Html.text "Add user" ]
-                , Forms.AddUser.view model.addUserFormState (toMsg << GotAddUserFormMsg)
-                ]
+                ( _, Nothing ) ->
+                    []
+
+                ( _, Just leaderboard ) ->
+                    [ Html.h2 [] [ Html.text "Leaderboard" ]
+                    , viewLeaderboard model.secretGroupId leaderboard
+                    , Html.h2 [] [ Html.text "Add game" ]
+                    , Forms.AddGame.view model.addGameFormState (toMsg << GotAddGameFormMsg)
+                    , Html.h2 [] [ Html.text "Add user" ]
+                    , Forms.AddUser.view model.addUserFormState (toMsg << GotAddUserFormMsg)
+                    ]
     in
     Html.div []
         (List.append
@@ -306,10 +310,8 @@ viewUser minScore maxScore secretGroupId user =
         ]
 
 
-viewLeaderboard : String -> Maybe Leaderboard -> Html.Html msg
-viewLeaderboard secretGroupId maybeLeaderboard =
-    case maybeLeaderboard of
-        Just leaderboard ->
+viewLeaderboard : String -> Leaderboard -> Html.Html msg
+viewLeaderboard secretGroupId leaderboard =
             let
                 scores =
                     List.map scoreUser leaderboard.users
@@ -326,5 +328,3 @@ viewLeaderboard secretGroupId maybeLeaderboard =
                     leaderboard.users
                 )
 
-        Nothing ->
-            Html.p [] [ Html.text "loading..." ]
