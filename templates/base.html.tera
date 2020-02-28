@@ -3,7 +3,9 @@
         <style>
         </style>
         <link rel="stylesheet" href="/static/css/index.css">
-        <link href="https://fonts.googleapis.com/css?family=Lato:900|Open+Sans&display=swap" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/css?family=Lato:900|Open+Sans&display=swap" rel="preload" as="style">
+        <link href="https://fonts.googleapis.com/css?family=Lato:900|Open+Sans&display=swap" rel="stylesheet">
+        <link href="/static/css/fontawesome-free-5.12.0.min.css" rel="preload" as="style">
         <link href="/static/css/fontawesome-free-5.12.0.min.css" rel="stylesheet">
     </head>
     <body>
