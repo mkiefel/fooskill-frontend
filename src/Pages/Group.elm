@@ -166,8 +166,8 @@ scoreUser user =
     user.player.skill.mu - 2.0 * sqrt user.player.skill.sigma2
 
 
-viewUser : Float -> Float -> String -> Api.User -> Html.Html msg
-viewUser minScore maxScore secretGroupId user =
+viewUser : Float -> Float -> String -> Int -> Api.User -> Html.Html msg
+viewUser minScore maxScore secretGroupId index user =
     let
         score =
             scoreUser user
@@ -189,7 +189,7 @@ viewUser minScore maxScore secretGroupId user =
                 / sqrt (2 * pi * user.player.skill.sigma2)
 
         paddedMinScore =
-            minScore - (maxScore - minScore) * 0.4
+            minScore - (maxScore - minScore) * 0.5
 
         paddedMaxScore =
             maxScore + (maxScore - minScore) * 0.2
@@ -264,7 +264,16 @@ viewUser minScore maxScore secretGroupId user =
                 ]
             ]
             [ Html.span []
-                [ Html.a
+                [ Html.span
+                    [ Attrs.css
+                        [ Css.width (Css.em 3)
+                        , Css.marginRight (Css.em 0.2)
+                        , Css.textAlign Css.right
+                        , Css.display Css.inlineBlock
+                        ]
+                    ]
+                    [ Html.text (String.fromInt index ++ ".") ]
+                , Html.a
                     [ Attrs.href
                         (Url.Builder.relative
                             [ secretGroupId, "users", user.id ]
@@ -312,19 +321,23 @@ viewUser minScore maxScore secretGroupId user =
 
 viewLeaderboard : String -> Leaderboard -> Html.Html msg
 viewLeaderboard secretGroupId leaderboard =
-            let
-                scores =
-                    List.map scoreUser leaderboard.users
+    let
+        scores =
+            List.map scoreUser leaderboard.users
 
-                minScore =
-                    Maybe.withDefault 0 (List.minimum scores)
+        minScore =
+            Maybe.withDefault 0 (List.minimum scores)
 
-                maxScore =
-                    Maybe.withDefault 100 (List.maximum scores)
-            in
-            Html.ol []
-                (List.map
-                    (viewUser minScore maxScore secretGroupId)
-                    leaderboard.users
-                )
-
+        maxScore =
+            Maybe.withDefault 100 (List.maximum scores)
+    in
+    Html.ol
+        [ Attrs.css
+            [ Css.listStyle Css.none
+            , Css.padding Css.zero
+            ]
+        ]
+        (List.indexedMap
+            (viewUser minScore maxScore secretGroupId)
+            leaderboard.users
+        )
