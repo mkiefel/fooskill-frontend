@@ -272,7 +272,7 @@ viewUser minScore maxScore secretGroupId index user =
                         , Css.display Css.inlineBlock
                         ]
                     ]
-                    [ Html.text (String.fromInt index ++ ".") ]
+                    [ Html.text (String.fromInt (index + 1) ++ ".") ]
                 , Html.a
                     [ Attrs.href
                         (Url.Builder.relative
@@ -310,7 +310,7 @@ viewUser minScore maxScore secretGroupId index user =
             [ Attrs.css
                 [ Css.position Css.absolute
                 , Css.bottom Css.zero
-                , Css.left Css.zero
+                , Css.left (Css.em 3.2)
                 , Css.right Css.zero
                 , Css.zIndex (Css.int -5)
                 ]
