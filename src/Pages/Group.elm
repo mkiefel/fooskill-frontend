@@ -192,7 +192,7 @@ viewUser minScore maxScore secretGroupId index user =
             minScore - (maxScore - minScore) * 0.5
 
         paddedMaxScore =
-            maxScore + (maxScore - minScore) * 0.2
+            maxScore + (maxScore - minScore) * 0.5
 
         samples =
             80
