@@ -276,7 +276,7 @@ viewUser minScore maxScore secretGroupId index user =
                 , Html.a
                     [ Attrs.href
                         (Url.Builder.relative
-                            [ secretGroupId, "users", user.id ]
+                            [ secretGroupId, "u", user.id ]
                             []
                         )
                     ]
