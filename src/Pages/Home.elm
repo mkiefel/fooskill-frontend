@@ -1,6 +1,6 @@
 module Pages.Home exposing (Model, Msg, init, update, view)
 
-import Html.Styled as Html
+import Html
 
 
 type alias Model =
@@ -12,15 +12,15 @@ type alias Msg =
 
 
 update : Msg -> Model -> (Msg -> msg) -> ( Model, Cmd msg )
-update msg model toMsg =
+update _ model _ =
     ( model, Cmd.none )
 
 
 view : Model -> (Msg -> msg) -> Html.Html msg
-view model toMsg =
+view _ _ =
     Html.div [] []
 
 
 init : (Msg -> msg) -> ( Model, Cmd msg )
-init toMsg =
+init _ =
     ( {}, Cmd.none )

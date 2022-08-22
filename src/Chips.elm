@@ -1,11 +1,9 @@
 module Chips exposing (Msg, State, getQuery, getUsers, init, setMessage, update, view)
 
 import Api
-import Css
-import Forms.Common
-import Html.Styled as Html
-import Html.Styled.Attributes as Attrs
-import Html.Styled.Events as Events
+import Forms.Common exposing (mapClasses)
+import Html
+import Html.Events as Events
 import Http
 import Json.Decode as Decode
 import Process
@@ -311,14 +309,15 @@ view label state toMsg =
 viewChip : Api.User -> Html.Html msg
 viewChip chip =
     Html.span
-        [ Attrs.css
-            [ Css.backgroundColor (Css.hex "60c17d")
-            , Css.color (Css.hex "ffffff")
-            , Css.borderRadius (Css.px 15)
-            , Css.padding2 (Css.px 0) (Css.px 12)
-            , Css.marginRight (Css.px 4)
+        (mapClasses
+            [ "bg-green-400"
+            , "text-white"
+            , "rounded-full"
+            , "px-3"
+            , "py-1"
+            , "mr-1"
             ]
-        ]
+        )
         [ Html.text chip.name ]
 
 
@@ -327,27 +326,21 @@ viewOption selectedOption toMsg option =
     let
         selectedCss =
             if option.id == selectedOption.id then
-                [ Css.backgroundColor (Css.hex "60c17d")
-                , Css.color (Css.hex "fff")
-                ]
+                mapClasses [ "bg-green-400", "text-white" ]
 
             else
                 []
     in
     Html.li
-        [ Attrs.css
-            (List.append
-                [ Css.display Css.block
-                , Css.padding2 (Css.px 5) (Css.px 10)
-                , Css.borderBottom3 (Css.px 1) Css.solid (Css.hex "ddd")
-                , Css.cursor Css.pointer
+        (Events.onMouseDown (toMsg (OnSelect option))
+            :: selectedCss
+            ++ mapClasses
+                [ "block"
+                , "px-1.5"
+                , "py-1"
+                , "cursor-pointer"
                 ]
-                selectedCss
-            )
-
-        -- Not ideal to treat a mouse down as a click.
-        , Events.onMouseDown (toMsg (OnSelect option))
-        ]
+        )
         [ Html.text option.name
         ]
 
@@ -366,31 +359,28 @@ viewMenu state toMsg =
                         state.options
             in
             [ Html.div
-                [ Attrs.css
-                    [ Css.position Css.absolute
-                    , Css.backgroundColor (Css.hex "fff")
-                    , Css.marginTop (Css.px 10)
-                    , Css.border3 (Css.px 1) Css.solid (Css.hex "ddd")
-                    , Css.boxShadow4
-                        Css.zero
-                        Css.zero
-                        (Css.px 5)
-                        (Css.rgba 0 0 0 0.1)
-                    , Css.minWidth (Css.px 120)
-                    , Css.zIndex (Css.int 10)
-                    , Css.top (Css.pct 100)
-                    , Css.left Css.zero
+                (mapClasses
+                    [ "absolute"
+                    , "bg-white"
+                    , "border"
+                    , "border-slate-300"
+                    , "drop-shadow-md"
+                    , "z-10"
+                    , "top-full"
+                    , "left-0"
+                    , "rounded-md"
+                    , "overflow-hidden"
                     ]
-                ]
+                )
                 [ Html.ul
-                    [ Attrs.css
-                        [ Css.listStyle Css.none
-                        , Css.padding Css.zero
-                        , Css.margin Css.auto
-                        , Css.maxHeight (Css.px 200)
-                        , Css.overflowY Css.auto
+                    (mapClasses
+                        [ "list-none"
+                        , "p-0"
+                        , "m-auto"
+                        , "max-h-48"
+                        , "overflow-y-auto"
                         ]
-                    ]
+                    )
                     options
                 ]
             ]

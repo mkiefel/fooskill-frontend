@@ -2,13 +2,11 @@ module Pages.Group exposing (Model, Msg, init, update, view)
 
 import Api
 import Color
-import Css
 import Forms.AddGame
 import Forms.AddUser
-import Forms.Common
-import Html.Styled as Html
-import Html.Styled.Attributes as Attrs
-import Html.Styled.Events as Events
+import Forms.Common exposing (mapClasses)
+import Html
+import Html.Attributes as Attrs
 import Http
 import Json.Decode as Decode
 import LineChart
@@ -19,7 +17,6 @@ import LineChart.Axis.Line
 import LineChart.Axis.Range
 import LineChart.Axis.Ticks
 import LineChart.Axis.Title
-import LineChart.Colors
 import LineChart.Container
 import LineChart.Dots
 import LineChart.Events
@@ -28,7 +25,6 @@ import LineChart.Interpolation
 import LineChart.Junk
 import LineChart.Legends
 import LineChart.Line
-import Url exposing (Url)
 import Url.Builder
 
 
@@ -123,16 +119,17 @@ view model toMsg =
     Html.div []
         (List.append
             [ Html.object
-                [ Attrs.type_ "image/svg+xml"
-                , Attrs.attribute "data" "/static/images/github.svg"
-                , Attrs.css
-                    [ Css.position Css.absolute
-                    , Css.top Css.zero
-                    , Css.right Css.zero
-                    , Css.width (Css.em 4)
-                    , Css.height (Css.em 4)
-                    ]
-                ]
+                ([ Attrs.type_ "image/svg+xml"
+                 , Attrs.attribute "data" "/static/images/github.svg"
+                 ]
+                    ++ mapClasses
+                        [ "absolute"
+                        , "top-0"
+                        , "right-0"
+                        , "w-20"
+                        , "h-20"
+                        ]
+                )
                 []
             , Html.h1 [] [ Html.text "Fooskill" ]
             ]
@@ -238,11 +235,11 @@ viewUser minScore maxScore secretGroupId index user =
                 , junk = LineChart.Junk.default
                 , grid = LineChart.Grid.default
                 , area = LineChart.Area.default
-                , line = LineChart.Line.wider 1
-                , dots = LineChart.Dots.default
+                , line = LineChart.Line.wider 0.4
+                , dots = LineChart.Dots.custom (LineChart.Dots.disconnected 2.0 1)
                 }
                 [ LineChart.line
-                    (Color.rgb255 96 193 125)
+                    (Color.rgb255 74 222 128)
                     LineChart.Dots.none
                     "density"
                     data
@@ -254,24 +251,18 @@ viewUser minScore maxScore secretGroupId index user =
                 ]
     in
     Html.li
-        [ Attrs.css
-            [ Css.position Css.relative ]
-        ]
+        (mapClasses [ "relative" ])
         [ Html.div
-            [ Attrs.css
-                [ Css.displayFlex
-                , Css.justifyContent Css.spaceBetween
-                ]
-            ]
+            (mapClasses [ "flex", "justify-between" ])
             [ Html.span []
                 [ Html.span
-                    [ Attrs.css
-                        [ Css.width (Css.em 3)
-                        , Css.marginRight (Css.em 0.2)
-                        , Css.textAlign Css.right
-                        , Css.display Css.inlineBlock
+                    (mapClasses
+                        [ "w-3"
+                        , "mr-0.5"
+                        , "text-right"
+                        , "inline-block"
                         ]
-                    ]
+                    )
                     [ Html.text (String.fromInt (index + 1) ++ ".") ]
                 , Html.a
                     [ Attrs.href
@@ -282,11 +273,7 @@ viewUser minScore maxScore secretGroupId index user =
                     ]
                     [ Html.text user.name ]
                 , Html.span
-                    [ Attrs.css
-                        [ Css.fontSize (Css.em 0.7)
-                        , Css.marginLeft (Css.px 5)
-                        ]
-                    ]
+                    (mapClasses [ "text-sm", "ml-0.5" ])
                     [ Html.text
                         (String.concat
                             [ "μ = "
@@ -300,22 +287,20 @@ viewUser minScore maxScore secretGroupId index user =
                     ]
                 ]
             , Html.span
-                [ Attrs.css
-                    [ Css.float Css.right
-                    ]
-                ]
+                (mapClasses [ "float-right" ])
                 [ Html.text <| String.fromFloat <| toString 2 score ]
             ]
         , Html.div
-            [ Attrs.css
-                [ Css.position Css.absolute
-                , Css.bottom Css.zero
-                , Css.left (Css.em 3.2)
-                , Css.right Css.zero
-                , Css.zIndex (Css.int -5)
+            (mapClasses
+                [ "absolute"
+                , "bottom-0"
+                , "left-2"
+                , "right-0"
+                , "-z-10"
+                , "text-xs"
                 ]
-            ]
-            [ Html.fromUnstyled chart ]
+            )
+            [ chart ]
         ]
 
 
@@ -332,11 +317,7 @@ viewLeaderboard secretGroupId leaderboard =
             Maybe.withDefault 100 (List.maximum scores)
     in
     Html.ol
-        [ Attrs.css
-            [ Css.listStyle Css.none
-            , Css.padding Css.zero
-            ]
-        ]
+        (mapClasses [ "list-none", "p-0" ])
         (List.indexedMap
             (viewUser minScore maxScore secretGroupId)
             leaderboard.users

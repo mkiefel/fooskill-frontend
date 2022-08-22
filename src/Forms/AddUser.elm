@@ -1,11 +1,9 @@
 module Forms.AddUser exposing (Msg, State, init, update, view)
 
 import Api
-import Css
 import Forms.Common as Common
-import Html.Styled as Html
-import Html.Styled.Attributes as Attrs
-import Html.Styled.Events as Events
+import Html
+import Html.Events as Events
 import Http
 import Json.Decode as Decode
 import Json.Encode as Encode

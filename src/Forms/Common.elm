@@ -1,72 +1,43 @@
-module Forms.Common exposing (viewInput, viewInputMessage, viewSubmitButton, viewSubmitMessage)
+module Forms.Common exposing (mapClasses, viewInput, viewInputMessage, viewSubmitButton, viewSubmitMessage)
 
-import Css
-import Html.Styled as Html
-import Html.Styled.Attributes as Attrs
+import Html
+import Html.Attributes as Attrs
+
+
+mapClasses : List String -> List (Html.Attribute msg)
+mapClasses =
+    List.map Attrs.class
 
 
 viewSubmitButton : String -> Bool -> Html.Html msg
 viewSubmitButton text enabled =
-    let
-        enabledStyles =
-            if enabled then
-                [ Css.cursor Css.pointer
-                , Css.boxShadow5
-                    Css.zero
-                    Css.zero
-                    (Css.px 5)
-                    Css.zero
-                    (Css.rgba 0 0 0 0.25)
-                ]
-
-            else
-                [ Css.cursor Css.notAllowed
-                , Css.opacity (Css.num 0.5)
-                ]
-    in
     Html.button
-        [ Attrs.type_ "submit"
-        , Attrs.css
-            (List.append
-                [ Css.padding2 (Css.px 10) (Css.px 30)
-                , Css.backgroundColor (Css.hex "60c17d")
-                , Css.borderWidth (Css.px 1)
-                , Css.borderColor Css.transparent
-                , Css.borderRadius (Css.px 3)
-                , Css.color (Css.hex "fff")
-                , Css.marginRight (Css.px 5)
-                , Css.active
-                    [ Css.backgroundColor (Css.hex "408053")
-                    ]
-                , Css.pseudoClass "focus:not(:active)"
-                    [ Css.boxShadow5
-                        Css.zero
-                        Css.zero
-                        (Css.px 5)
-                        Css.zero
-                        (Css.rgba 72 199 116 0.8)
-                    ]
-                ]
-                enabledStyles
-            )
-        ]
+        (mapClasses
+            [ "bg-green-400"
+            , "hover:bg-green-700"
+            , "px-5"
+            , "py-2.5"
+            , "text-sm"
+            , "leading-5"
+            , "rounded-md"
+            , "font-semibold"
+            , "text-white"
+            , "disabled:bg-slate-500"
+            , "drop-shadow-md"
+            ]
+            ++ [ Attrs.type_ "submit"
+               , Attrs.disabled (not enabled)
+               ]
+        )
         [ Html.text text ]
 
 
 viewSubmitMessageItems : String -> String -> List (Html.Html msg)
 viewSubmitMessageItems text icon =
     [ Html.span
-        [ Attrs.css
-            [ Css.padding (Css.px 3) ]
-        ]
+        [ Attrs.class "p-1" ]
         [ Html.i
-            [ Attrs.class "fas"
-            , Attrs.class icon
-            , Attrs.css
-                [ Css.marginLeft (Css.px 3)
-                , Css.marginRight (Css.px 3)
-                ]
-            ]
+            (mapClasses [ "fas", icon, "ml-1", "mr-1" ])
             []
         , Html.text text
         ]
@@ -95,13 +66,7 @@ viewInputMessage message =
     case message of
         Just text ->
             [ Html.span
-                [ Attrs.css
-                    [ Css.position Css.absolute
-                    , Css.bottom Css.zero
-                    , Css.right Css.zero
-                    , Css.color (Css.hex "f14668")
-                    ]
-                ]
+                (mapClasses [ "absolute", "bottom-0", "right-0", "text-red-500" ])
                 [ Html.text text ]
             ]
 
@@ -109,43 +74,44 @@ viewInputMessage message =
             []
 
 
+viewInput : String -> String -> List (Html.Attribute msg) -> List (Html.Attribute msg) -> List (Html.Html msg) -> List (Html.Html msg) -> Html.Html msg
 viewInput label value attributes_label attributes_input chips menu =
-    Html.label
-        [ Attrs.css
-            (List.append
-                [ Css.display Css.block
-                , Css.marginBottom (Css.px 10)
+    let
+        classes =
+            mapClasses
+                [ "mt-1"
+                , "w-full"
+                , "px-1.5"
+                , "py-1"
+
+                -- Appearence.
+                , "bg-white"
+                , "border"
+                , "border-green-400"
+                , "rounded-md"
+                , "text-sm"
+                , "shadow-sm"
+
+                -- Items will get ordered inside according to flex.
+                , "flex"
+                , "items-center"
                 ]
-                attributes_label
-            )
-        ]
+    in
+    Html.label
+        (mapClasses [ "block", "mb-1" ]
+            ++ attributes_label
+        )
         [ Html.text label
         , Html.div
-            [ Attrs.css
-                [ Css.displayFlex
-                , Css.border3 (Css.px 1) Css.solid (Css.hex "60c17d")
-                , Css.borderRadius (Css.px 3)
-                , Css.padding (Css.px 10)
-                , Css.alignItems Css.center
-                ]
-            ]
+            classes
             (Html.span
-                [ Attrs.css
-                    [ Css.position Css.relative
-                    , Css.order (Css.num 1)
-                    , Css.flexGrow (Css.num 1)
-                    ]
-                ]
+                (mapClasses [ "relative", "order-1", "grow" ])
                 (List.append
                     [ Html.input
-                        (List.append
-                            [ Attrs.css
-                                [ Css.border Css.zero
-                                , Css.width (Css.pct 100)
-                                ]
-                            , Attrs.value value
-                            ]
-                            attributes_input
+                        (mapClasses [ "border-0", "w-full", "outline-none", "my-1" ]
+                            ++ (Attrs.value value
+                                    :: attributes_input
+                               )
                         )
                         []
                     ]

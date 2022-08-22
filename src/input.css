@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  h1 {
+    @apply font-display text-2xl sm:text-3xl font-extrabold text-gray-800 tracking-tight mb-2 mt-2;
+  }
+
+  h2 {
+    @apply font-display text-xl sm:text-2xl font-extrabold text-gray-800 tracking-tight border-b border-green-400 mb-2 mt-2;
+  }
+
+  body {
+    @apply px-4 lg:px-6 md:container md:mx-auto;
+
+  }
+
+  button[type=submit] {
+    @apply bg-green-400 hover:bg-green-700 px-5 py-2.5 text-sm leading-5 rounded-md font-semibold text-white disabled:bg-slate-500 drop-shadow-md;
+  }
+}

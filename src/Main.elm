@@ -2,7 +2,6 @@ module Main exposing (main)
 
 import Browser
 import Browser.Navigation
-import Html.Styled as Html
 import Pages.Group
 import Pages.Home
 import Route
@@ -25,7 +24,7 @@ main =
 
 
 init : {} -> Url.Url -> Browser.Navigation.Key -> ( Model, Cmd Msg )
-init flags url _ =
+init _ url _ =
     let
         route =
             Maybe.withDefault Route.Home (Route.fromUrl url)
@@ -101,5 +100,5 @@ view model =
                     Pages.Group.view subModel GotGroupMsg
     in
     { title = "Fooskill"
-    , body = [ Html.toUnstyled body ]
+    , body = [ body ]
     }
