@@ -1,7 +1,7 @@
 module Forms.AddGame exposing (Msg, State, init, update, view)
 
 import Api
-import Chips
+import Components.Chips as Chips
 import Forms.Common as Common
 import Html
 import Html.Events as Events

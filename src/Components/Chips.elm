@@ -1,4 +1,13 @@
-module Chips exposing (Msg, State, getQuery, getUsers, init, setMessage, update, view)
+module Components.Chips exposing
+    ( Msg
+    , State
+    , getQuery
+    , getUsers
+    , init
+    , setMessage
+    , update
+    , view
+    )
 
 import Api
 import Forms.Common exposing (mapClasses)
