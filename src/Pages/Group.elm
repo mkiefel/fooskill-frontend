@@ -2,6 +2,7 @@ module Pages.Group exposing (Model, Msg, init, update, view)
 
 import Api
 import Color
+import Components.Base
 import Forms.AddGame
 import Forms.AddUser
 import Forms.Common exposing (mapClasses)
@@ -47,14 +48,18 @@ type Msg
     | GotAddUserFormMsg Forms.AddUser.Msg
 
 
-init : String -> (Msg -> msg) -> ( Model, Cmd msg )
-init secretGroupId toMsg =
+type alias Parameter =
+    { secretGroupId : String }
+
+
+init : Parameter -> (Msg -> msg) -> ( Model, Cmd msg )
+init parameter toMsg =
     ( { leaderboard = Nothing
-      , addGameFormState = Forms.AddGame.init secretGroupId
-      , addUserFormState = Forms.AddUser.init secretGroupId
-      , secretGroupId = secretGroupId
+      , addGameFormState = Forms.AddGame.init parameter.secretGroupId
+      , addUserFormState = Forms.AddUser.init parameter.secretGroupId
+      , secretGroupId = parameter.secretGroupId
       }
-    , requestLeaderboard secretGroupId toMsg
+    , requestLeaderboard parameter.secretGroupId toMsg
     )
 
 
@@ -116,25 +121,7 @@ view model toMsg =
                     , Forms.AddUser.view model.addUserFormState (toMsg << GotAddUserFormMsg)
                     ]
     in
-    Html.div []
-        (List.append
-            [ Html.object
-                ([ Attrs.type_ "image/svg+xml"
-                 , Attrs.attribute "data" "/static/images/github.svg"
-                 ]
-                    ++ mapClasses
-                        [ "absolute"
-                        , "top-0"
-                        , "right-0"
-                        , "w-20"
-                        , "h-20"
-                        ]
-                )
-                []
-            , Html.h1 [] [ Html.text "Fooskill" ]
-            ]
-            body
-        )
+    Components.Base.view "Group" body
 
 
 
@@ -266,7 +253,7 @@ viewUser minScore maxScore secretGroupId index user =
                     [ Html.text (String.fromInt (index + 1) ++ ".") ]
                 , Html.a
                     [ Attrs.href
-                        (Url.Builder.relative
+                        (Url.Builder.absolute
                             [ secretGroupId, "u", user.id ]
                             []
                         )

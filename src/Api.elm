@@ -1,4 +1,12 @@
-module Api exposing (apiUrl, Skill, Player, User, userDecoder)
+module Api exposing
+    ( Game
+    , Player
+    , Skill
+    , User
+    , apiUrl
+    , gameDecoder
+    , userDecoder
+    )
 
 import Json.Decode as Decode
 
@@ -18,6 +26,12 @@ type alias User =
     { id : String
     , name : String
     , player : Player
+    }
+
+
+type alias Game =
+    { winners : List User
+    , losers : List User
     }
 
 
@@ -42,6 +56,14 @@ userDecoder =
         (Decode.field "id" Decode.string)
         (Decode.field "name" Decode.string)
         (Decode.field "player" playerDecoder)
+
+
+gameDecoder : Decode.Decoder Game
+gameDecoder =
+    Decode.map2
+        Game
+        (Decode.field "winners" <| Decode.list userDecoder)
+        (Decode.field "losers" <| Decode.list userDecoder)
 
 
 apiUrl : String

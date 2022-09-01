@@ -8,7 +8,7 @@
   }
 
   h2 {
-    @apply font-display text-xl sm:text-2xl font-extrabold text-gray-800 tracking-tight border-b border-green-400 mb-2 mt-2;
+    @apply font-display text-xl sm:text-2xl font-extrabold text-gray-800 tracking-tight border-b-4 border-green-400 mb-2 mt-2;
   }
 
   body {
@@ -18,5 +18,9 @@
 
   button[type=submit] {
     @apply bg-green-400 hover:bg-green-700 px-5 py-2.5 text-sm leading-5 rounded-md font-semibold text-white disabled:bg-slate-500 drop-shadow-md;
+  }
+
+  a {
+    @apply decoration-dotted underline hover:decoration-green-700;
   }
 }

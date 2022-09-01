@@ -4,6 +4,7 @@ import Browser
 import Browser.Navigation
 import Pages.Group
 import Pages.Home
+import Pages.User
 import Route
 import Url
 
@@ -40,18 +41,23 @@ init _ url _ =
         Route.Home ->
             initWith Pages.Home.init GotHomeMsg Home
 
-        Route.Group secreteGroupId ->
-            initWith (Pages.Group.init secreteGroupId) GotGroupMsg Group
+        Route.Group parameter ->
+            initWith (Pages.Group.init parameter) GotGroupMsg Group
+
+        Route.User parameter ->
+            initWith (Pages.User.init parameter) GotUserMsg User
 
 
 type Model
     = Home Pages.Home.Model
     | Group Pages.Group.Model
+    | User Pages.User.Model
 
 
 type Msg
     = GotHomeMsg Pages.Home.Msg
     | GotGroupMsg Pages.Group.Msg
+    | GotUserMsg Pages.User.Msg
     | OnUrlRequest Browser.UrlRequest
     | OnUrlChange Url.Url
 
@@ -72,6 +78,13 @@ update msg model =
                     Pages.Group.update subMsg subModel GotGroupMsg
             in
             ( Group newSubModel, cmd )
+
+        ( GotUserMsg subMsg, User subModel ) ->
+            let
+                ( newSubModel, cmd ) =
+                    Pages.User.update subMsg subModel GotUserMsg
+            in
+            ( User newSubModel, cmd )
 
         ( OnUrlRequest request, _ ) ->
             case request of
@@ -98,6 +111,9 @@ view model =
 
                 Group subModel ->
                     Pages.Group.view subModel GotGroupMsg
+
+                User subModel ->
+                    Pages.User.view subModel GotUserMsg
     in
     { title = "Fooskill"
     , body = [ body ]
