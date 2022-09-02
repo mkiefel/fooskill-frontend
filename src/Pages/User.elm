@@ -133,8 +133,8 @@ viewGames secretGroupId games =
         viewRow classes left right =
             Html.li (mapClasses [ "block" ] ++ classes)
                 [ Html.div (mapClasses [ "flex", "justify-between" ])
-                    [ Html.span [] left
-                    , Html.span [] right
+                    [ Html.span (mapClasses [ "flex", "space-x-1" ]) left
+                    , Html.span (mapClasses [ "flex", "space-x-1" ]) right
                     ]
                 ]
 
