@@ -90,7 +90,13 @@ view model _ =
                                     )
                                 ]
                             ]
-                      , Html.h2 [] [ Html.text "Games" ]
+                      , Html.h2 []
+                            [ Html.text "Games"
+                            , Html.span
+                                (mapClasses [ "text-sm", "ml-0.5" ])
+                                [ Html.text "winners losers"
+                                ]
+                            ]
                       , viewGames model.secretGroupId user.games
                       ]
                     )
@@ -129,9 +135,9 @@ requestUser secretGroupId userId toMsg =
 viewGames : String -> List Api.Game -> Html.Html msg
 viewGames secretGroupId games =
     let
-        viewRow : List (Html.Attribute msg) -> List (Html.Html msg) -> List (Html.Html msg) -> Html.Html msg
-        viewRow classes left right =
-            Html.li (mapClasses [ "block" ] ++ classes)
+        viewRow : List (Html.Html msg) -> List (Html.Html msg) -> Html.Html msg
+        viewRow left right =
+            Html.li (mapClasses [ "block" ])
                 [ Html.div (mapClasses [ "flex", "justify-between" ])
                     [ Html.span (mapClasses [ "flex", "space-x-1" ]) left
                     , Html.span (mapClasses [ "flex", "space-x-1" ]) right
@@ -151,7 +157,7 @@ viewGames secretGroupId games =
 
         viewGame : Api.Game -> Html.Html msg
         viewGame game =
-            viewRow []
+            viewRow
                 (List.map
                     viewPlayer
                     game.winners
@@ -163,8 +169,4 @@ viewGames secretGroupId games =
     in
     Html.ol
         (mapClasses [ "list-none", "p-0" ])
-        (viewRow (mapClasses [ "border-slate-400", "border-b" ])
-            [ Html.text "winners" ]
-            [ Html.text "losers" ]
-            :: List.map viewGame games
-        )
+        (List.map viewGame games)
