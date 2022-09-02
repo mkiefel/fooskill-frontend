@@ -21,6 +21,6 @@
   }
 
   a {
-    @apply decoration-dotted underline hover:decoration-green-700;
+    @apply decoration-solid underline hover:decoration-green-400 decoration-2;
   }
 }
