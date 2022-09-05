@@ -7,6 +7,7 @@ import Html
 import Html.Attributes as Attrs
 import Http
 import Json.Decode as Decode
+import Route
 import Url.Builder
 
 
@@ -101,7 +102,7 @@ view model _ =
                       ]
                     )
     in
-    Components.Base.view title body
+    Components.Base.view model.secretGroupId title body
 
 
 
@@ -147,11 +148,7 @@ viewGames secretGroupId games =
         viewPlayer : Api.User -> Html.Html msg
         viewPlayer player =
             Html.a
-                [ Attrs.href
-                    (Url.Builder.absolute
-                        [ secretGroupId, "u", player.id ]
-                        []
-                    )
+                [ Attrs.href (Route.createUserUrl secretGroupId player.id)
                 ]
                 [ Html.text player.name ]
 

@@ -3,10 +3,11 @@ module Components.Base exposing (view)
 import Forms.Common exposing (mapClasses)
 import Html
 import Html.Attributes as Attrs
+import Route
 
 
-view : String -> List (Html.Html msg) -> Html.Html msg
-view title body =
+view : String -> String -> List (Html.Html msg) -> Html.Html msg
+view secretGroupId title body =
     Html.div []
         (List.append
             [ Html.object
@@ -24,7 +25,13 @@ view title body =
                 []
             , Html.h1
                 []
-                [ Html.text ("Fooskill -- " ++ title) ]
+                [ Html.a
+                    (Attrs.href (Route.createGroupUrl secretGroupId)
+                        :: mapClasses [ "no-underline" ]
+                    )
+                    [ Html.text ("Fooskill -- " ++ title)
+                    ]
+                ]
             ]
             body
         )

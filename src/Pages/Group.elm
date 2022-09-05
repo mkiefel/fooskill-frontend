@@ -26,6 +26,7 @@ import LineChart.Interpolation
 import LineChart.Junk
 import LineChart.Legends
 import LineChart.Line
+import Route
 import Url.Builder
 
 
@@ -121,7 +122,7 @@ view model toMsg =
                     , Forms.AddUser.view model.addUserFormState (toMsg << GotAddUserFormMsg)
                     ]
     in
-    Components.Base.view "Group" body
+    Components.Base.view model.secretGroupId "Group" body
 
 
 
@@ -252,11 +253,7 @@ viewUser minScore maxScore secretGroupId index user =
                     )
                     [ Html.text (String.fromInt (index + 1) ++ ".") ]
                 , Html.a
-                    [ Attrs.href
-                        (Url.Builder.absolute
-                            [ secretGroupId, "u", user.id ]
-                            []
-                        )
+                    [ Attrs.href (Route.createUserUrl secretGroupId user.id)
                     ]
                     [ Html.text user.name ]
                 , Html.span
