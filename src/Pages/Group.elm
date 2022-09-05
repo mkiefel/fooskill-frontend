@@ -114,11 +114,11 @@ view model toMsg =
                     []
 
                 ( _, Just leaderboard ) ->
-                    [ Html.h2 [] [ Html.text "Leaderboard" ]
+                    [ Components.Common.viewSection [ Html.text "Leaderboard" ]
                     , viewLeaderboard model.secretGroupId leaderboard
-                    , Html.h2 [] [ Html.text "Add game" ]
+                    , Components.Common.viewSection [ Html.text "Add game" ]
                     , Components.AddGame.view model.addGameFormState (toMsg << GotAddGameFormMsg)
-                    , Html.h2 [] [ Html.text "Add user" ]
+                    , Components.Common.viewSection [ Html.text "Add user" ]
                     , Components.AddUser.view model.addUserFormState (toMsg << GotAddUserFormMsg)
                     ]
     in
@@ -280,7 +280,7 @@ viewUser minScore maxScore secretGroupId index user =
                 , "bottom-0"
                 , "left-2"
                 , "right-0"
-                , "-z-10"
+                , "-z-20"
                 , "text-xs"
                 ]
             )

@@ -75,7 +75,7 @@ view model _ =
 
                 Just user ->
                     ( user.user.name
-                    , [ Html.h2 []
+                    , [ Components.Common.viewSection
                             [ Html.text "Score"
                             , Html.span
                                 (mapClasses [ "text-sm", "ml-0.5" ])
@@ -91,7 +91,7 @@ view model _ =
                                     )
                                 ]
                             ]
-                      , Html.h2 []
+                      , Components.Common.viewSection
                             [ Html.text "Games"
                             , Html.span
                                 (mapClasses [ "text-sm", "ml-0.5" ])

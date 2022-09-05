@@ -15,7 +15,7 @@
   }
 
   h2 {
-    @apply font-display text-xl md:text-base font-extrabold text-gray-800 tracking-tight border-b-4 border-green-400 mb-2 mt-2;
+    @apply font-display text-xl md:text-base font-extrabold text-gray-800 tracking-tight mb-2 mt-2;
   }
 
   body {

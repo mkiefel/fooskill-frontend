@@ -2,6 +2,7 @@ module Components.Common exposing
     ( mapClasses
     , viewInput
     , viewInputMessage
+    , viewSection
     , viewSubmitButton
     , viewSubmitMessage
     )
@@ -130,4 +131,23 @@ viewInput label value attributes_label attributes_input chips menu =
                 )
                 :: chips
             )
+        ]
+
+
+viewSection : List (Html.Html msg) -> Html.Html msg
+viewSection title =
+    Html.h2 (mapClasses [ "relative" ])
+        [ Html.span [] title
+        , Html.span
+            (mapClasses
+                [ "absolute"
+                , "bottom-0"
+                , "w-full"
+                , "h-1.5"
+                , "left-0"
+                , "bg-green-400"
+                , "-z-10"
+                ]
+            )
+            []
         ]
