@@ -1,4 +1,10 @@
-module Forms.Common exposing (mapClasses, viewInput, viewInputMessage, viewSubmitButton, viewSubmitMessage)
+module Components.Common exposing
+    ( mapClasses
+    , viewInput
+    , viewInputMessage
+    , viewSubmitButton
+    , viewSubmitMessage
+    )
 
 import Html
 import Html.Attributes as Attrs

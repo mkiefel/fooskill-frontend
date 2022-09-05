@@ -10,7 +10,7 @@ module Components.Chips exposing
     )
 
 import Api
-import Forms.Common exposing (mapClasses)
+import Components.Common exposing (mapClasses)
 import Html
 import Html.Events as Events
 import Http
@@ -300,7 +300,7 @@ view label state toMsg =
         chips =
             List.map viewChip state.chips
     in
-    Forms.Common.viewInput
+    Components.Common.viewInput
         label
         state.query
         []
@@ -311,7 +311,7 @@ view label state toMsg =
         chips
         (List.append
             (viewMenu state toMsg)
-            (Forms.Common.viewInputMessage state.message)
+            (Components.Common.viewInputMessage state.message)
         )
 
 

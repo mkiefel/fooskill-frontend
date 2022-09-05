@@ -1,6 +1,6 @@
 module Components.Base exposing (view)
 
-import Forms.Common exposing (mapClasses)
+import Components.Common exposing (mapClasses)
 import Html
 import Html.Attributes as Attrs
 import Route

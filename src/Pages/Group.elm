@@ -2,10 +2,10 @@ module Pages.Group exposing (Model, Msg, init, update, view)
 
 import Api
 import Color
+import Components.AddGame
+import Components.AddUser
 import Components.Base
-import Forms.AddGame
-import Forms.AddUser
-import Forms.Common exposing (mapClasses)
+import Components.Common exposing (mapClasses)
 import Html
 import Html.Attributes as Attrs
 import Http
@@ -37,16 +37,16 @@ type alias Leaderboard =
 
 type alias Model =
     { leaderboard : Maybe Leaderboard
-    , addGameFormState : Forms.AddGame.State
-    , addUserFormState : Forms.AddUser.State
+    , addGameFormState : Components.AddGame.State
+    , addUserFormState : Components.AddUser.State
     , secretGroupId : String
     }
 
 
 type Msg
     = GotLeaderboard (Result Http.Error Leaderboard)
-    | GotAddGameFormMsg Forms.AddGame.Msg
-    | GotAddUserFormMsg Forms.AddUser.Msg
+    | GotAddGameFormMsg Components.AddGame.Msg
+    | GotAddUserFormMsg Components.AddUser.Msg
 
 
 type alias Parameter =
@@ -56,8 +56,8 @@ type alias Parameter =
 init : Parameter -> (Msg -> msg) -> ( Model, Cmd msg )
 init parameter toMsg =
     ( { leaderboard = Nothing
-      , addGameFormState = Forms.AddGame.init parameter.secretGroupId
-      , addUserFormState = Forms.AddUser.init parameter.secretGroupId
+      , addGameFormState = Components.AddGame.init parameter.secretGroupId
+      , addUserFormState = Components.AddUser.init parameter.secretGroupId
       , secretGroupId = parameter.secretGroupId
       }
     , requestLeaderboard parameter.secretGroupId toMsg
@@ -83,7 +83,7 @@ update msg model toMsg =
                     requestLeaderboard model.secretGroupId toMsg
 
                 ( newState, cmd ) =
-                    Forms.AddGame.update
+                    Components.AddGame.update
                         reloadLeaderboard
                         subMsg
                         model.addGameFormState
@@ -94,7 +94,7 @@ update msg model toMsg =
         GotAddUserFormMsg subMsg ->
             let
                 ( newState, cmd ) =
-                    Forms.AddUser.update
+                    Components.AddUser.update
                         subMsg
                         model.addUserFormState
                         (toMsg << GotAddUserFormMsg)
@@ -117,9 +117,9 @@ view model toMsg =
                     [ Html.h2 [] [ Html.text "Leaderboard" ]
                     , viewLeaderboard model.secretGroupId leaderboard
                     , Html.h2 [] [ Html.text "Add game" ]
-                    , Forms.AddGame.view model.addGameFormState (toMsg << GotAddGameFormMsg)
+                    , Components.AddGame.view model.addGameFormState (toMsg << GotAddGameFormMsg)
                     , Html.h2 [] [ Html.text "Add user" ]
-                    , Forms.AddUser.view model.addUserFormState (toMsg << GotAddUserFormMsg)
+                    , Components.AddUser.view model.addUserFormState (toMsg << GotAddUserFormMsg)
                     ]
     in
     Components.Base.view model.secretGroupId "Group" body

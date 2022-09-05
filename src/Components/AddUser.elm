@@ -1,7 +1,7 @@
-module Forms.AddUser exposing (Msg, State, init, update, view)
+module Components.AddUser exposing (Msg, State, init, update, view)
 
 import Api
-import Forms.Common as Common
+import Components.Common as Common
 import Html
 import Html.Events as Events
 import Http
