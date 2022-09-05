@@ -17,12 +17,14 @@ view title body =
                         [ "absolute"
                         , "top-0"
                         , "right-0"
-                        , "w-20"
-                        , "h-20"
+                        , "w-16"
+                        , "h-16"
                         ]
                 )
                 []
-            , Html.h1 [] [ Html.text ("Fooskill -- " ++ title) ]
+            , Html.h1
+                []
+                [ Html.text ("Fooskill -- " ++ title) ]
             ]
             body
         )

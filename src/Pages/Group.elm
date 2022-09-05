@@ -222,8 +222,8 @@ viewUser minScore maxScore secretGroupId index user =
                 , junk = LineChart.Junk.default
                 , grid = LineChart.Grid.default
                 , area = LineChart.Area.default
-                , line = LineChart.Line.wider 0.4
-                , dots = LineChart.Dots.custom (LineChart.Dots.disconnected 2.0 1)
+                , line = LineChart.Line.default
+                , dots = LineChart.Dots.default
                 }
                 [ LineChart.line
                     (Color.rgb255 74 222 128)

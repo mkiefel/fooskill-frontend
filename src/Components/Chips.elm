@@ -322,9 +322,11 @@ viewChip chip =
             [ "bg-green-400"
             , "text-white"
             , "rounded-full"
-            , "px-3"
-            , "py-1"
             , "mr-1"
+            , "px-3"
+
+            -- Should match the classes of the input.
+            , "py-1"
             ]
         )
         [ Html.text chip.name ]

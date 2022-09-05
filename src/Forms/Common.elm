@@ -17,7 +17,7 @@ viewSubmitButton text enabled =
             , "hover:bg-green-700"
             , "px-5"
             , "py-2.5"
-            , "text-sm"
+            , "text-base"
             , "leading-5"
             , "rounded-md"
             , "font-semibold"
@@ -108,7 +108,12 @@ viewInput label value attributes_label attributes_input chips menu =
                 (mapClasses [ "relative", "order-1", "grow" ])
                 (List.append
                     [ Html.input
-                        (mapClasses [ "border-0", "w-full", "outline-none", "my-1" ]
+                        (mapClasses
+                            [ "border-0"
+                            , "w-full"
+                            , "outline-none"
+                            , "py-1"
+                            ]
                             ++ (Attrs.value value
                                     :: attributes_input
                                )
