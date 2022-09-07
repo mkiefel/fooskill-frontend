@@ -4,10 +4,8 @@ import Api
 import Components.Base
 import Components.Common exposing (mapClasses)
 import Html
-import Html.Attributes as Attrs
 import Http
 import Json.Decode as Decode
-import Route
 import Url.Builder
 
 
@@ -139,18 +137,15 @@ viewGames secretGroupId games =
         viewRow : List (Html.Html msg) -> List (Html.Html msg) -> Html.Html msg
         viewRow left right =
             Html.li (mapClasses [ "block" ])
-                [ Html.div (mapClasses [ "flex", "justify-between" ])
-                    [ Html.span (mapClasses [ "flex", "space-x-1" ]) left
-                    , Html.span (mapClasses [ "flex", "space-x-1" ]) right
+                [ Html.div (mapClasses [ "flex", "justify-between", "item-baseline" ])
+                    [ Html.span (mapClasses [ "flex", "space-x-1", "item-baseline" ]) left
+                    , Html.span (mapClasses [ "flex", "space-x-1", "item-baseline" ]) right
                     ]
                 ]
 
         viewPlayer : Api.User -> Html.Html msg
         viewPlayer player =
-            Html.a
-                [ Attrs.href (Route.createUserUrl secretGroupId player.id)
-                ]
-                [ Html.text player.name ]
+            Components.Common.viewUserLink secretGroupId player.id player.name
 
         viewGame : Api.Game -> Html.Html msg
         viewGame game =

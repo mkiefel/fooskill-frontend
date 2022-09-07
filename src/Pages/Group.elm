@@ -7,7 +7,6 @@ import Components.AddUser
 import Components.Base
 import Components.Common exposing (mapClasses)
 import Html
-import Html.Attributes as Attrs
 import Http
 import Json.Decode as Decode
 import LineChart
@@ -26,7 +25,6 @@ import LineChart.Interpolation
 import LineChart.Junk
 import LineChart.Legends
 import LineChart.Line
-import Route
 import Url.Builder
 
 
@@ -252,10 +250,7 @@ viewUser minScore maxScore secretGroupId index user =
                         ]
                     )
                     [ Html.text (String.fromInt (index + 1) ++ ".") ]
-                , Html.a
-                    [ Attrs.href (Route.createUserUrl secretGroupId user.id)
-                    ]
-                    [ Html.text user.name ]
+                , Components.Common.viewUserLink secretGroupId user.id user.name
                 , Html.span
                     (mapClasses [ "text-sm", "ml-0.5" ])
                     [ Html.text

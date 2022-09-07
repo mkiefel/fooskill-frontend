@@ -5,10 +5,12 @@ module Components.Common exposing
     , viewSection
     , viewSubmitButton
     , viewSubmitMessage
+    , viewUserLink
     )
 
 import Html
 import Html.Attributes as Attrs
+import Route
 
 
 mapClasses : List String -> List (Html.Attribute msg)
@@ -153,4 +155,28 @@ viewSection title =
                 ]
             )
             []
+        ]
+
+
+viewUserLink : String -> String -> String -> Html.Html msg
+viewUserLink secretGroupId userId userName =
+    Html.a
+        [ Attrs.href (Route.createUserUrl secretGroupId userId) ]
+        [ Html.span (mapClasses [ "relative" ])
+            [ Html.text userName
+            , Html.span
+                (mapClasses
+                    [ "absolute"
+                    , "bottom-[0.12rem]"
+                    , "w-full"
+                    , "h-[0.08rem]"
+                    , "left-0"
+                    , "bg-gradient-to-r"
+                    , "from-green-400"
+                    , "to-blue-500"
+                    , "-z-10"
+                    ]
+                )
+                []
+            ]
         ]

@@ -19,10 +19,6 @@
   }
 
   body {
-    @apply px-1 lg:px-6 container md:mx-auto;
-  }
-
-  a {
-    @apply decoration-solid underline hover:decoration-green-400 decoration-2;
+    @apply px-1 lg:px-6 container md:mx-auto text-gray-800;
   }
 }
