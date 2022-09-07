@@ -20,8 +20,11 @@ viewSubmitButton : String -> Bool -> Html.Html msg
 viewSubmitButton text enabled =
     Html.button
         (mapClasses
-            [ "bg-green-400"
-            , "hover:bg-green-700"
+            [ "bg-gradient-to-r"
+            , "from-green-400"
+            , "to-blue-500"
+            , "hover:from-green-500"
+            , "hover:to-blue-600"
             , "px-5"
             , "py-2.5"
             , "text-base"
