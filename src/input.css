@@ -11,7 +11,7 @@
   }
 
   h1 {
-    @apply font-display text-2xl md:text-xl font-extrabold text-gray-800 tracking-tight mb-2 mt-2;
+    @apply font-display text-2xl md:text-2xl font-extrabold text-gray-800 tracking-tight mb-2 mt-2;
   }
 
   h2 {
