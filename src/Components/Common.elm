@@ -78,7 +78,7 @@ viewInputMessage message =
     case message of
         Just text ->
             [ Html.span
-                (mapClasses [ "absolute", "bottom-0", "right-0", "text-red-500" ])
+                (mapClasses [ "absolute", "bottom-0", "right-0", "text-red-500", "py-1" ])
                 [ Html.text text ]
             ]
 
