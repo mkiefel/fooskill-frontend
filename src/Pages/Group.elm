@@ -238,21 +238,22 @@ viewUser minScore maxScore secretGroupId index user =
     in
     Html.li
         (mapClasses [ "relative" ])
-        [ Html.div
-            (mapClasses [ "flex", "justify-between" ])
-            [ Html.span []
-                [ Html.span
-                    (mapClasses
-                        [ "w-7"
-                        , "mr-0.5"
-                        , "text-right"
-                        , "inline-block"
-                        ]
-                    )
-                    [ Html.text (String.fromInt (index + 1) ++ ".") ]
-                , Components.Common.viewUserLink secretGroupId user.id user.name
+        [ Html.div (mapClasses [ "flex" ])
+            [ Html.span
+                (mapClasses
+                    [ "w-7"
+                    , "mr-0.5"
+                    , "text-right"
+                    , "inline-block"
+                    ]
+                )
+                [ Html.text (String.fromInt (index + 1) ++ ".") ]
+            , Html.div
+                (mapClasses [ "flex", "flex-wrap", "items-baseline", "grow" ])
+                [ Html.span (mapClasses [ "mr-0.5" ])
+                    [ Components.Common.viewUserLink secretGroupId user.id user.name ]
                 , Html.span
-                    (mapClasses [ "text-sm", "ml-0.5" ])
+                    (mapClasses [ "text-xs" ])
                     [ Html.text
                         (String.concat
                             [ "μ = "
@@ -264,22 +265,22 @@ viewUser minScore maxScore secretGroupId index user =
                             ]
                         )
                     ]
+                , Html.span
+                    (mapClasses [ "ml-auto" ])
+                    [ Html.text <| String.fromFloat <| toString 2 score ]
                 ]
-            , Html.span
-                (mapClasses [ "float-right" ])
-                [ Html.text <| String.fromFloat <| toString 2 score ]
+            , Html.div
+                (mapClasses
+                    [ "absolute"
+                    , "bottom-0"
+                    , "left-2"
+                    , "right-0"
+                    , "-z-20"
+                    , "text-xs"
+                    ]
+                )
+                [ chart ]
             ]
-        , Html.div
-            (mapClasses
-                [ "absolute"
-                , "bottom-0"
-                , "left-2"
-                , "right-0"
-                , "-z-20"
-                , "text-xs"
-                ]
-            )
-            [ chart ]
         ]
 
 
