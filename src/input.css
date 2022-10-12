@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+svg .chart__line path {
+  vector-effect: non-scaling-stroke;
+}
+
 @layer base {
   html {
     font-size: 1.5rem;
