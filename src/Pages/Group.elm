@@ -243,7 +243,7 @@ viewUser minScore maxScore secretGroupId index user =
             [ Html.span []
                 [ Html.span
                     (mapClasses
-                        [ "w-3"
+                        [ "w-7"
                         , "mr-0.5"
                         , "text-right"
                         , "inline-block"
